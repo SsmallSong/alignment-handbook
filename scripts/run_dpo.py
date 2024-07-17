@@ -81,13 +81,13 @@ def main():
         data_args,
         splits=data_args.dataset_splits,
         configs=data_args.dataset_configs,
-        columns_to_keep=["messages", "chosen", "rejected", "prompt", "completion", "label"],
+        columns_to_keep=["chosen", "rejected", "prompt"],
     )
     logger.info(
         f"Training on the following splits: {[split + ' : ' + str(dset.num_rows) for split, dset in raw_datasets.items()]}"
     )
     column_names = list(raw_datasets["train"].features)
-
+    print(colum_names)
     #####################################
     # Load tokenizer and process datasets
     #####################################
@@ -108,7 +108,7 @@ def main():
         remove_columns=column_names,
         desc="Formatting comparisons with prompt template",
     )
-
+    print(raw_datasets)
     ##########################
     # Decontaminate benchmarks
     ##########################
@@ -126,11 +126,11 @@ def main():
         f"Decontaminated {num_filtered_train_samples} ({num_filtered_train_samples/num_raw_train_samples * 100:.2f}%) samples from the training set."
     )
 
-    # Replace column names with what TRL needs, text_chosen -> chosen and text_rejected -> rejected
-    for split in ["train", "test"]:
-        raw_datasets[split] = raw_datasets[split].rename_columns(
-            {"text_prompt": "prompt", "text_chosen": "chosen", "text_rejected": "rejected"}
-        )
+    # # Replace column names with what TRL needs, text_chosen -> chosen and text_rejected -> rejected
+    # for split in ["train", "test"]:
+    #     raw_datasets[split] = raw_datasets[split].rename_columns(
+    #         {"text_prompt": "prompt", "text_chosen": "chosen", "text_rejected": "rejected"}
+    #     )
 
     # Log a few random samples from the training set:
     for index in random.sample(range(len(raw_datasets["train"])), 3):
@@ -146,7 +146,7 @@ def main():
     model_kwargs = dict(
         revision=model_args.model_revision,
         trust_remote_code=model_args.trust_remote_code,
-        use_flash_attention_2=model_args.use_flash_attention_2,
+        # use_flash_attention_2=model_args.use_flash_attention_2,
         torch_dtype=torch_dtype,
         use_cache=False if training_args.gradient_checkpointing else True,
         device_map=get_kbit_device_map() if quantization_config is not None else None,
@@ -160,7 +160,7 @@ def main():
         model_kwargs = dict(
             revision=model_args.base_model_revision,
             trust_remote_code=model_args.trust_remote_code,
-            use_flash_attention_2=model_args.use_flash_attention_2,
+            # use_flash_attention_2=model_args.use_flash_attention_2,
             torch_dtype=torch_dtype,
             use_cache=False if training_args.gradient_checkpointing else True,
             device_map=get_kbit_device_map() if quantization_config is not None else None,
