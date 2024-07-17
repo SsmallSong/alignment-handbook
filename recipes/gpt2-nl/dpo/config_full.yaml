@@ -1,5 +1,5 @@
 # Model arguments
-model_name_or_path: BramVanroy/gpt2-sft-dutch
+model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
 model_revision: main
 torch_dtype: bfloat16
 
