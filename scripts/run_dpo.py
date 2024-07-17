@@ -89,6 +89,11 @@ def main():
     column_names = list(raw_datasets["train"].features)
     print("="*20)
     print(raw_datasets)
+    first_five_train = raw_datasets["train"].select(range(5))
+
+    # 输出前五条数据
+    for i, example in enumerate(first_five_train):
+        print(f"Example {i + 1}: {example}")
     print("="*20)
     
     print("="*20)
@@ -111,11 +116,15 @@ def main():
             "auto_insert_empty_system_msg": data_args.auto_insert_empty_system_msg,
         },
         num_proc=data_args.preprocessing_num_workers,
-        remove_columns=column_names,
+        # remove_columns=column_names,
         desc="Formatting comparisons with prompt template",
     )
     print("="*20)
     print(raw_datasets)
+    first_five_train = raw_datasets["train"].select(range(5))
+    # 输出前五条数据
+    for i, example in enumerate(first_five_train):
+        print(f"Example {i + 1}: {example}")
     print("="*20)
     ##########################
     # Decontaminate benchmarks
