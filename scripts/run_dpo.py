@@ -41,7 +41,40 @@ from trl import DPOTrainer
 
 
 logger = logging.getLogger(__name__)
+def dataset_propress(example):
+    human_prefix='<|user|>'
+    human_suffix=''
+    assistant_prefix ='<|assistant|>'
+    assistant_suffix=''
+    
+    def split_prompt_and_responses(ex):
+        search_term = '\n\nAssistant: '
+        search_term_idx = ex['chosen'].rfind(search_term)
+        prompt = ex['chosen'][:search_term_idx + len(search_term)]
+        chosen_response = ex['chosen'][len(prompt):]
+        rejected_response = ex['rejected'][len(prompt):]
+        return prompt, chosen_response, rejected_response
+    prompt, chosen, rejected = split_prompt_and_responses(example)
+    # strip trailing spaces to avoid tokenization issues
+    chunks = []
+    # turn doesn't always start with \n\n so watch out
+    for chunk in re.split(r'\s*(Human:|Assistant:)\s+', prompt): 
+        if chunk.startswith('Human'):
+            chunk = re.sub(r'\s*Human:\s*', human_prefix, chunk) + human_suffix
+        elif chunk.startswith('Assistant'):
+            chunk = re.sub(r'\s*Assistant:\s*', assistant_prefix, chunk) + assistant_suffix
+        else:
+            pass
 
+        if chunk != '':
+            chunks.append(chunk)
+    prompt_1 = ''.join(chunks)
+    chosen_1=chosen + assistant_suffix
+    rejected_1=rejected + assistant_suffix
+    example["prompt"] = prompt_1
+    example["chosen"] = chosen_1
+    example["rejected"] = rejected_1
+    return example
 
 def main():
     parser = H4ArgumentParser((ModelArguments, DataArguments, DPOConfig))
@@ -108,17 +141,19 @@ def main():
     #####################
     # Apply chat template
     #####################
-    raw_datasets = raw_datasets.map(
-        apply_chat_template,
-        fn_kwargs={
-            "tokenizer": tokenizer,
-            "task": "dpo",
-            "auto_insert_empty_system_msg": data_args.auto_insert_empty_system_msg,
-        },
-        num_proc=data_args.preprocessing_num_workers,
-      #  remove_columns=column_names,
-        desc="Formatting comparisons with prompt template",
-    )
+    # raw_datasets = raw_datasets.map(
+    #     apply_chat_template,
+    #     fn_kwargs={
+    #         "tokenizer": tokenizer,
+    #         "task": "dpo",
+    #         "auto_insert_empty_system_msg": data_args.auto_insert_empty_system_msg,
+    #     },
+    #     num_proc=data_args.preprocessing_num_workers,
+    #   #  remove_columns=column_names,
+    #     desc="Formatting comparisons with prompt template",
+    # )
+    raw_datasets = raw_datasets.map(dataset_propress, batched=False)
+
     print("="*20)
     print(raw_datasets)
     first_five_train = raw_datasets["train"].select(range(5))
