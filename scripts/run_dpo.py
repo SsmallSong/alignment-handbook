@@ -109,6 +109,7 @@ def main():
         desc="Formatting comparisons with prompt template",
     )
     print(raw_datasets)
+    
     ##########################
     # Decontaminate benchmarks
     ##########################
@@ -122,10 +123,12 @@ def main():
         desc="Decontaminating HumanEval samples",
     )
     num_filtered_train_samples = num_raw_train_samples - len(raw_datasets["train"])
+    print(num_filtered_train_samples)
     logger.info(
         f"Decontaminated {num_filtered_train_samples} ({num_filtered_train_samples/num_raw_train_samples * 100:.2f}%) samples from the training set."
     )
-
+    print(raw_datasets)
+    kill
     # # Replace column names with what TRL needs, text_chosen -> chosen and text_rejected -> rejected
     # for split in ["train", "test"]:
     #     raw_datasets[split] = raw_datasets[split].rename_columns(
