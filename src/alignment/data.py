@@ -71,6 +71,7 @@ def apply_chat_template(
                 f"Could not format example as dialogue for `rm` task! Require `[chosen, rejected]` keys but found {list(example.keys())}"
             )
     elif task in ["dpo", "orpo"]:
+        print("1"*20)
         if all(k in example.keys() for k in ("chosen", "rejected")):
             if not is_openai_format(example["chosen"]) or not is_openai_format(example["rejected"]):
                 raise ValueError(
@@ -80,10 +81,12 @@ def apply_chat_template(
             # For DPO/ORPO, the inputs are triples of (prompt, chosen, rejected), where `chosen` and `rejected` are the final turn of a dialogue
             # We therefore need to extract the N-1 turns to form the prompt
             if "prompt" in example and is_openai_format(example["prompt"]):
+                print("2"*20)
                 prompt_messages = example["prompt"]
                 chosen_messages = example["chosen"]
                 rejected_messages = example["rejected"]
             else:
+                print("3"*20)
                 prompt_messages = example["chosen"][:-1]
                 # Now we extract the final turn to define chosen/rejected responses
                 chosen_messages = example["chosen"][-1:]
