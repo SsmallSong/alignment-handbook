@@ -87,7 +87,13 @@ def main():
         f"Training on the following splits: {[split + ' : ' + str(dset.num_rows) for split, dset in raw_datasets.items()]}"
     )
     column_names = list(raw_datasets["train"].features)
+    print("="*20)
+    print(raw_dataset)
+    print("="*20)
+    
+    print("="*20)
     print(column_names)
+    print("="*20)
     #####################################
     # Load tokenizer and process datasets
     #####################################
@@ -108,26 +114,27 @@ def main():
         remove_columns=column_names,
         desc="Formatting comparisons with prompt template",
     )
+    print("="*20)
     print(raw_datasets)
-    
+    print("="*20)
     ##########################
     # Decontaminate benchmarks
     ##########################
-    num_raw_train_samples = len(raw_datasets["train"])
-    raw_datasets = raw_datasets.filter(
-        decontaminate_humaneval,
-        fn_kwargs={"text_column": "text_chosen"},
-        batched=True,
-        batch_size=10_000,
-        num_proc=1,
-        desc="Decontaminating HumanEval samples",
-    )
-    num_filtered_train_samples = num_raw_train_samples - len(raw_datasets["train"])
-    print(num_filtered_train_samples)
-    logger.info(
-        f"Decontaminated {num_filtered_train_samples} ({num_filtered_train_samples/num_raw_train_samples * 100:.2f}%) samples from the training set."
-    )
-    print(raw_datasets)
+    # num_raw_train_samples = len(raw_datasets["train"])
+    # raw_datasets = raw_datasets.filter(
+    #     decontaminate_humaneval,
+    #     fn_kwargs={"text_column": "text_chosen"},
+    #     batched=True,
+    #     batch_size=10_000,
+    #     num_proc=1,
+    #     desc="Decontaminating HumanEval samples",
+    # )
+    # num_filtered_train_samples = num_raw_train_samples - len(raw_datasets["train"])
+    # print(num_filtered_train_samples)
+    # logger.info(
+    #     f"Decontaminated {num_filtered_train_samples} ({num_filtered_train_samples/num_raw_train_samples * 100:.2f}%) samples from the training set."
+    # )
+    # print(raw_datasets)
     kill
     # # Replace column names with what TRL needs, text_chosen -> chosen and text_rejected -> rejected
     # for split in ["train", "test"]:
