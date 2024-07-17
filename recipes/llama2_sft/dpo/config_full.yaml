@@ -6,7 +6,7 @@ torch_dtype: null
 # Data training arguments
 # For definitions, see: src/h4/training/config.py
 dataset_mixer:
-  trl-internal-testing/hh-rlhf-trl-style: 1.0
+  Anthropic/hh-rlhf: 1.0
 dataset_splits:
 - train
 - test
