@@ -88,7 +88,7 @@ def main():
     )
     column_names = list(raw_datasets["train"].features)
     print("="*20)
-    print(raw_dataset)
+    print(raw_datasets)
     print("="*20)
     
     print("="*20)
