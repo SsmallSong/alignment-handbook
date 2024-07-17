@@ -87,7 +87,7 @@ def main():
         f"Training on the following splits: {[split + ' : ' + str(dset.num_rows) for split, dset in raw_datasets.items()]}"
     )
     column_names = list(raw_datasets["train"].features)
-    print(colum_names)
+    print(column_names)
     #####################################
     # Load tokenizer and process datasets
     #####################################
