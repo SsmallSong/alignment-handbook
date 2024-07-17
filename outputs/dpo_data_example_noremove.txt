@@ -1,7 +1,7 @@
-[2024-07-17 15:25:58,901] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-2024-07-17 15:25:59 - INFO - __main__ - Model parameters ModelArguments(base_model_revision=None, model_name_or_path='meta-llama/Meta-Llama-3-8B-Instruct', model_revision='main', model_code_revision=None, torch_dtype='bfloat16', tokenizer_name_or_path=None, trust_remote_code=False, use_flash_attention_2=False, use_peft=False, lora_r=16, lora_alpha=32, lora_dropout=0.05, lora_target_modules=None, lora_modules_to_save=None, load_in_8bit=False, load_in_4bit=False, bnb_4bit_quant_type='nf4', use_bnb_nested_quant=False, bnb_4bit_quant_storage='uint8')
-2024-07-17 15:25:59 - INFO - __main__ - Data parameters DataArguments(chat_template=None, dataset_mixer={'BramVanroy/ultra_feedback_dutch': 1.0}, text_column='text', dataset_splits=['train_prefs', 'test_prefs'], dataset_configs=None, preprocessing_num_workers=12, truncation_side=None, auto_insert_empty_system_msg=True)
-2024-07-17 15:25:59 - INFO - __main__ - Training/evaluation parameters DPOConfig(
+[2024-07-17 15:42:29,919] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+2024-07-17 15:42:30 - INFO - __main__ - Model parameters ModelArguments(base_model_revision=None, model_name_or_path='meta-llama/Meta-Llama-3-8B-Instruct', model_revision='main', model_code_revision=None, torch_dtype='bfloat16', tokenizer_name_or_path=None, trust_remote_code=False, use_flash_attention_2=False, use_peft=False, lora_r=16, lora_alpha=32, lora_dropout=0.05, lora_target_modules=None, lora_modules_to_save=None, load_in_8bit=False, load_in_4bit=False, bnb_4bit_quant_type='nf4', use_bnb_nested_quant=False, bnb_4bit_quant_storage='uint8')
+2024-07-17 15:42:30 - INFO - __main__ - Data parameters DataArguments(chat_template=None, dataset_mixer={'BramVanroy/ultra_feedback_dutch': 1.0}, text_column='text', dataset_splits=['train_prefs', 'test_prefs'], dataset_configs=None, preprocessing_num_workers=12, truncation_side=None, auto_insert_empty_system_msg=True)
+2024-07-17 15:42:30 - INFO - __main__ - Training/evaluation parameters DPOConfig(
 _n_gpu=1,
 accelerator_config={'split_batches': False, 'dispatch_batches': None, 'even_batches': True, 'use_seedable_sampler': True, 'non_blocking': False, 'gradient_accumulation_kwargs': None, 'use_configured_state': False},
 adafactor=False,
@@ -73,7 +73,7 @@ local_rank=0,
 log_level=info,
 log_level_replica=warning,
 log_on_each_node=True,
-logging_dir=data/gpt2-dpo-dutch/runs/Jul17_15-25-59_design-agent-09,
+logging_dir=data/gpt2-dpo-dutch/runs/Jul17_15-42-30_design-agent-09,
 logging_first_step=True,
 logging_nan_inf_filter=True,
 logging_steps=10,
@@ -133,7 +133,7 @@ warmup_ratio=0.1,
 warmup_steps=0,
 weight_decay=0.0,
 )
-2024-07-17 15:26:02 - INFO - __main__ - Training on the following splits: ['train : 48228', 'test : 5359']
+2024-07-17 15:42:34 - INFO - __main__ - Training on the following splits: ['train : 48228', 'test : 5359']
 ====================
 DatasetDict({
     train: Dataset({
