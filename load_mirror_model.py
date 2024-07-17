@@ -16,10 +16,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
 load_dict_path="llama2_7b_sft_halos_2_3/LATEST/policy.pt"
 cache_path="/home/wxt/.cache/huggingface/hub"
 
-bin_file_path_1 = '/home/wxt/huggingface/hub/llama2_sft_mirror/pytorch_model-00001-of-00002.bin'  # 请将此路径替换为你的bin文件路径
+bin_file_path_1 = '/home/wxt/huatong/huggingface/hub/llama2_sft_mirror/pytorch_model-00001-of-00002.bin'  # 请将此路径替换为你的bin文件路径
 binary_data_1 = torch.load(bin_file_path_1, map_location='cpu')
 
-bin_file_path_2 = '/home/wxt/huggingface/hub/llama2_sft_mirror/pytorch_model-00002-of-00002.bin'  # 请将此路径替换为你的bin文件路径
+bin_file_path_2 = '/home/wxt/huatong/huggingface/hub/llama2_sft_mirror/pytorch_model-00002-of-00002.bin'  # 请将此路径替换为你的bin文件路径
 binary_data_2 = torch.load(bin_file_path_2, map_location='cpu')
 
 state_dict_all = torch.load(os.path.join(cache_path, load_dict_path), map_location='cpu')
