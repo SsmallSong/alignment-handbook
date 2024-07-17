@@ -116,7 +116,7 @@ def main():
             "auto_insert_empty_system_msg": data_args.auto_insert_empty_system_msg,
         },
         num_proc=data_args.preprocessing_num_workers,
-        # remove_columns=column_names,
+        remove_columns=column_names,
         desc="Formatting comparisons with prompt template",
     )
     print("="*20)
