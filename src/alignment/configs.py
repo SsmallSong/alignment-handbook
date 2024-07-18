@@ -284,7 +284,16 @@ class DPOConfig(transformers.TrainingArguments):
     optim: Optional[str] = field(default="rmsprop")
     remove_unused_columns: bool = field(default=False)
     loss_type: Optional[str] = field(default="sigmoid", metadata={"help": ("The loss type for DPO.")})
-
+    
+    generate_during_eval: bool = False
+    precompute_ref_log_probs: bool = False
+    dataset_num_proc: Optional[int] = None
+    model_init_kwargs: Optional[Dict] = None
+    ref_model_init_kwargs: Optional[Dict] = None
+    model_adapter_name: Optional[str] = None
+    ref_adapter_name: Optional[str] = None
+    reference_free: bool = False
+    force_use_ref_model: bool = False
 
 @dataclass
 class ORPOConfig(transformers.TrainingArguments):
