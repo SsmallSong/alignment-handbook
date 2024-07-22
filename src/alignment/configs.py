@@ -290,6 +290,15 @@ class DPOConfig(transformers.TrainingArguments):
         default=False,
         metadata={"help": "Whether to sample and log generations during evaluation step."},
     )
+
+    label_smoothing: float = 0
+    label_pad_token_id: int = -100
+    padding_value: Optional[int] = None
+    truncation_mode: str = "keep_end"
+    max_target_length: Optional[int] = None
+    is_encoder_decoder: Optional[bool] = None
+    disable_dropout: bool = True
+    generate_during_eval: bool = False
     precompute_ref_log_probs: bool = False
     dataset_num_proc: Optional[int] = None
     model_init_kwargs: Optional[Dict] = None
@@ -298,6 +307,12 @@ class DPOConfig(transformers.TrainingArguments):
     ref_adapter_name: Optional[str] = None
     reference_free: bool = False
     force_use_ref_model: bool = False
+    f_divergence_type: Optional[FDivergenceType] = FDivergenceType.REVERSE_KL
+    f_alpha_divergence_coef: Optional[float] = 1.0
+    sync_ref_model: bool = False
+    ref_model_mixup_alpha: float = 0.9
+    ref_model_sync_steps: int = 64
+    rpo_alpha: Optional[float] = None
 
 @dataclass
 class ORPOConfig(transformers.TrainingArguments):
