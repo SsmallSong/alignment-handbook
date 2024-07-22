@@ -286,6 +286,10 @@ class DPOConfig(transformers.TrainingArguments):
     loss_type: Optional[str] = field(default="sigmoid", metadata={"help": ("The loss type for DPO.")})
     
     generate_during_eval: bool = False
+    generate_during_eval: bool = field(
+        default=False,
+        metadata={"help": "Whether to sample and log generations during evaluation step."},
+    )
     precompute_ref_log_probs: bool = False
     dataset_num_proc: Optional[int] = None
     model_init_kwargs: Optional[Dict] = None
