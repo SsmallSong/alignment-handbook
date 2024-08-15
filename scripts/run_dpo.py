@@ -120,8 +120,8 @@ def main():
         columns_to_keep=["chosen", "rejected", "prompt"],
     )
     # 只抽取前100条数据
-    train_dataset = raw_datasets["train"].select(range(100))
-    test_dataset = raw_datasets["test"].select(range(100))
+    train_dataset = raw_datasets["train"].select(range(2000))
+    test_dataset = raw_datasets["test"].select(range(2000))
     
     # 如果你希望继续使用这些子集作为训练和测试集
     raw_datasets["train"] = train_dataset
