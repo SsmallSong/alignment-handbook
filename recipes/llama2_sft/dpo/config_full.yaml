@@ -19,7 +19,7 @@ beta: 0.01
 do_eval: true
 evaluation_strategy: steps
 eval_steps: 100
-gradient_accumulation_steps: 2
+gradient_accumulation_steps: 4
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: False
@@ -27,16 +27,16 @@ learning_rate : 1.0e-6
 log_level: info
 logging_steps: 10
 lr_scheduler_type: cosine
-max_length: 2048
-max_prompt_length: 1024
+max_length: 1024
+max_prompt_length: 512
 num_train_epochs: 1
 optim: adamw_torch
 output_dir: /home/wxt/huatong/huggingface/hub/llama2_dpo_handbook
-per_device_train_batch_size: 8
-per_device_eval_batch_size: 8
+per_device_train_batch_size: 4
+per_device_eval_batch_size: 4
 push_to_hub: false
 save_strategy: "steps"
-save_steps: 100
+save_steps: 1000
 save_total_limit: 1
 seed: 42
 warmup_ratio: 0.1
