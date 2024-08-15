@@ -119,6 +119,13 @@ def main():
         configs=data_args.dataset_configs,
         columns_to_keep=["chosen", "rejected", "prompt"],
     )
+    # 只抽取前100条数据
+    train_dataset = raw_datasets["train"].select(range(100))
+    test_dataset = raw_datasets["test"].select(range(100))
+    
+    # 如果你希望继续使用这些子集作为训练和测试集
+    raw_datasets["train"] = train_dataset
+    raw_datasets["test"] = test_dataset
     logger.info(
         f"Training on the following splits: {[split + ' : ' + str(dset.num_rows) for split, dset in raw_datasets.items()]}"
     )
